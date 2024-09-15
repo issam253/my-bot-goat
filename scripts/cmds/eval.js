@@ -2,19 +2,20 @@ const { removeHomeDir, log } = global.utils;
 
 module.exports = {
 	config: {
-		name: "eval",
+		name: "تجربة",
+   aliases: ["eval", "ev"],
 		version: "1.6",
 		author: "NTKhang",
 		countDown: 5,
 		role: 2,
 		description: {
 			vi: "Test code nhanh",
-			en: "Test code quickly"
+			en: "تجربة الأكواد"
 		},
-		category: "owner",
+		category: "ادمن",
 		guide: {
 			vi: "{pn} <đoạn code cần test>",
-			en: "{pn} <code to test>"
+			en: "{pn} <الكود>"
 		}
 	},
 
@@ -23,11 +24,12 @@ module.exports = {
 			error: "❌ Đã có lỗi xảy ra:"
 		},
 		en: {
-			error: "❌ An error occurred:"
+			error: "❌ حدث خطأ:"
 		}
 	},
 
 	onStart: async function ({ api, args, message, event, threadsData, usersData, dashBoardData, globalData, threadModel, userModel, dashBoardModel, globalModel, role, commandName, getLang }) {
+if(!args.join(" ")) message.reply("اكتب شيء")
 		function output(msg) {
 			if (typeof msg == "number" || typeof msg == "boolean" || typeof msg == "function")
 				msg = msg.toString();
