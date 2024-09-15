@@ -1,125 +1,185 @@
-function sleep(time) {
-	return new Promise((resolve) => setTimeout(resolve, time));
+module.exports = {
+    config: {
+        name: "القفز",
+        version: "1.0",
+        author: "عصام",
+        description: {
+			vi: "Thêm, xóa, sửa quyền admin",
+			en: "لعبة الضفدع القافز"
+		},
+        longDescription: "لعبة الضفضع .",
+        category: "العاب",
+        guide: {
+            en: "{p} ضفضع"
+ 
+        }
+    },
+
+    onStart: async function ({ event, message, api, usersData }) {
+        try {
+            const board = generateInitialBoard();
+            const sentMessage = await message.reply(board);
+            global.FrogGame = {
+                currentMessageID: sentMessage.messageID,
+                initiator: event.senderID,
+                frogPosition: null,
+                snakePositions: generateSnakePositions(),
+                gameOver: false,
+                win: false
+            };
+        } catch (error) {
+            console.error("Error", error);
+        }
+    },
+
+    onChat: async function ({ event, message, api, usersData }) {
+        try {
+            if (!global.FrogGame || global.FrogGame.gameOver || event.senderID !== global.FrogGame.initiator) return;
+
+            const chosenBox = parseInt(event.body.trim());
+            if (isNaN(chosenBox) || chosenBox < 1 || chosenBox > 16) {
+                return;
+            }
+
+            if (!isValidMove(chosenBox)) {
+                return;
+            }
+
+            await moveFrog(chosenBox, message, api, usersData);
+        } catch (error) {
+            console.error("خطأ :", error);
+        }
+    }
+};
+
+function generateInitialBoard() {
+    let board = "";
+    for (let i = 1; i <= 16; i++) {
+        board += "🟨 ";
+        if (i % 4 === 0) {
+            board += "\n";
+        }
+    }
+    return board.trim();
 }
 
-module.exports = {
-	config: {
-		name: "filteruser",
-		version: "1.6",
-		author: "NTKhang",
-		countDown: 5,
-		role: 1,
-		description: {
-			vi: "lọc thành viên nhóm theo số tin nhắn hoặc bị khóa acc",
-			en: "filter group members by number of messages or locked account"
-		},
-		category: "box chat",
-		guide: {
-			vi: "   {pn} [<số tin nhắn> | die]",
-			en: "   {pn} [<number of messages> | die]"
-		}
-	},
+function generateSnakePositions() {
+    const snakePositions = [];
+    while (snakePositions.length < 8) {
+        const position = Math.floor(Math.random() * 16) + 1;
+        if (!snakePositions.includes(position)) {
+            snakePositions.push(position);
+        }
+    }
+    return snakePositions;
+}
 
-	langs: {
-		vi: {
-			needAdmin: "⚠️ | Vui lòng thêm bot làm quản trị viên của box để sử dụng lệnh này",
-			confirm: "⚠️ | Bạn có chắc chắn muốn xóa thành viên nhóm có số tin nhắn nhỏ hơn %1 không?\nThả cảm xúc bất kì vào tin nhắn này để xác nhận",
-			kickByBlock: "✅ | Đã xóa thành công %1 thành viên bị khóa acc",
-			kickByMsg: "✅ | Đã xóa thành công %1 thành viên có số tin nhắn nhỏ hơn %2",
-			kickError: "❌ | Đã xảy ra lỗi không thể kick %1 thành viên:\n%2",
-			noBlock: "✅ | Không có thành viên nào bị khóa acc",
-			noMsg: "✅ | Không có thành viên nào có số tin nhắn nhỏ hơn %1"
-		},
-		en: {
-			needAdmin: "⚠️ | Please add the bot as a group admin to use this command",
-			confirm: "⚠️ | Are you sure you want to delete group members with less than %1 messages?\nReact to this message to confirm",
-			kickByBlock: "✅ | Successfully removed %1 members unavailable account",
-			kickByMsg: "✅ | Successfully removed %1 members with less than %2 messages",
-			kickError: "❌ | An error occurred and could not kick %1 members:\n%2",
-			noBlock: "✅ | There are no members who are locked acc",
-			noMsg: "✅ | There are no members with less than %1 messages"
-		}
-	},
+function isValidMove(chosenBox) {
+    const frogPosition = global.FrogGame.frogPosition;
 
-	onStart: async function ({ api, args, threadsData, message, event, commandName, getLang }) {
-		const threadData = await threadsData.get(event.threadID);
-		if (!threadData.adminIDs.includes(api.getCurrentUserID()))
-			return message.reply(getLang("needAdmin"));
+    if (frogPosition === null) {
+        return [13, 14, 15, 16].includes(chosenBox);
+    } else if ([13, 14, 15, 16].includes(frogPosition)) {
+        return [9, 10, 11, 12].includes(chosenBox);
+    } else if ([9, 10, 11, 12].includes(frogPosition)) {
+        return [5, 6, 7, 8].includes(chosenBox);
+    } else {
+        return [1, 2, 3, 4].includes(chosenBox);
+    }
+}
 
-		if (!isNaN(args[0])) {
-			message.reply(getLang("confirm", args[0]), (err, info) => {
-				global.GoatBot.onReaction.set(info.messageID, {
-					author: event.senderID,
-					messageID: info.messageID,
-					minimum: Number(args[0]),
-					commandName
-				});
-			});
-		}
-		else if (args[0] == "die") {
-			const threadData = await api.getThreadInfo(event.threadID);
-			const membersBlocked = threadData.userInfo.filter(user => user.type !== "User");
-			const errors = [];
-			const success = [];
-			for (const user of membersBlocked) {
-				if (user.type !== "User" && !threadData.adminIDs.some(id => id == user.id)) {
-					try {
-						await api.removeUserFromGroup(user.id, event.threadID);
-						success.push(user.id);
-					}
-					catch (e) {
-						errors.push(user.name);
-					}
-					await sleep(700);
-				}
-			}
+async function moveFrog(chosenBox, message, api, usersData) {
+    const { frogPosition, snakePositions } = global.FrogGame;
 
-			let msg = "";
-			if (success.length > 0)
-				msg += `${getLang("kickByBlock", success.length)}\n`;
-			if (errors.length > 0)
-				msg += `${getLang("kickError", errors.length, errors.join("\n"))}\n`;
-			if (msg == "")
-				msg += getLang("noBlock");
-			message.reply(msg);
-		}
-		else
-			message.SyntaxError();
-	},
+    if (snakePositions.includes(chosenBox)) {
+        let coinsEarned = 0;
+        let gameOverMessage = "❌| اللعبة انتهت لقد أكل الضفدع ";
 
-	onReaction: async function ({ api, Reaction, event, threadsData, message, getLang }) {
-		const { minimum = 1, author } = Reaction;
-		if (event.userID != author)
-			return;
-		const threadData = await threadsData.get(event.threadID);
-		const botID = api.getCurrentUserID();
-		const membersCountLess = threadData.members.filter(member =>
-			member.count < minimum
-			&& member.inGroup == true
-			// ignore bot and admin box
-			&& member.userID != botID
-			&& !threadData.adminIDs.some(id => id == member.userID)
-		);
-		const errors = [];
-		const success = [];
-		for (const member of membersCountLess) {
-			try {
-				await api.removeUserFromGroup(member.userID, event.threadID);
-				success.push(member.userID);
-			}
-			catch (e) {
-				errors.push(member.name);
-			}
-			await sleep(700);
-		}
+        if (frogPosition >= 13 && frogPosition <= 16) {
+            coinsEarned = 20000;
+        } else if (frogPosition >= 9 && frogPosition <= 12) {
+            coinsEarned = 30000;
+        } else if (frogPosition >= 5 && frogPosition <= 8) {
+            coinsEarned = 40000;
+        } else if (frogPosition >= 1 && frogPosition <= 4) {
+            coinsEarned = 10000;
+        }
 
-		let msg = "";
-		if (success.length > 0)
-			msg += `${getLang("kickByMsg", success.length, minimum)}\n`;
-		if (errors.length > 0)
-			msg += `${getLang("kickError", errors.length, errors.join("\n"))}\n`;
-		if (msg == "")
-			msg += getLang("noMsg", minimum);
-		message.reply(msg);
-	}
-};
+        if (coinsEarned > 0) {
+            gameOverMessage = `☺لقد أكلك و لاكن أنا كريم.\nوربحت ${coinsEarned} عملة.`;
+            const senderID = global.FrogGame.initiator;
+            const userData = await usersData.get(senderID);
+            const updatedMoney = userData.money + coinsEarned;
+            await usersData.set(senderID, { money: updatedMoney });
+        }
+
+        global.FrogGame.gameOver = true;
+        const gameOverBoard = revealSnakeBox(chosenBox);
+        await api.editMessage(gameOverBoard, global.FrogGame.currentMessageID);
+        return message.reply(gameOverMessage);
+    }
+
+    global.FrogGame.frogPosition = chosenBox;
+
+    if (chosenBox <= 4 && !snakePositions.includes(chosenBox)) {
+        global.FrogGame.win = true;
+        global.FrogGame.gameOver = true;
+
+        const winnerBoard = generateBoard(chosenBox);
+        const senderID = global.FrogGame.initiator;
+        const userData = await usersData.get(senderID);
+        const updatedMoney = userData.money + 100000;
+        await usersData.set(senderID, { money: updatedMoney });
+
+        const sentMessage = await message.reply("🥳فزت");
+        if (global.FrogGame.currentMessageID) {
+            try {
+                await message.unsend(global.FrogGame.currentMessageID);
+            } catch (error) {
+                console.error("خطأ :", error);
+            }
+        }
+        global.FrogGame.currentMessageID = sentMessage.messageID;
+    }
+
+    const board = generateBoard(chosenBox);
+    const sentMessage = await message.reply(board);
+    if (global.FrogGame.currentMessageID) {
+        try {
+            await message.unsend(global.FrogGame.currentMessageID);
+        } catch (error) {
+            console.error("Error while unsending message:", error);
+        }
+    }
+    global.FrogGame.currentMessageID = sentMessage.messageID;
+}
+
+function revealSnakeBox(chosenBox) {
+    let board = "";
+    for (let i = 1; i <= 16; i++) {
+        if (i === chosenBox) {
+            board += "🐍 ";
+        } else {
+            board += "🟥 ";
+        }
+        if (i % 4 === 0) {
+            board += "\n";
+        }
+    }
+    return board.trim();
+}
+
+function generateBoard(frogPosition = null) {
+    let board = "";
+    for (let i = 1; i <= 16; i++) {
+        if (i === frogPosition) {
+            board += "🐸 ";
+        } else {
+            board += "🟩 ";
+        }
+        if (i % 4 === 0) {
+            board += "\n";
+        }
+    }
+    return board.trim();
+}
