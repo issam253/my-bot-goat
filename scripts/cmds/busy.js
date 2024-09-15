@@ -3,21 +3,21 @@ if (!global.client.busyList)
 
 module.exports = {
 	config: {
-		name: "busy",
+		name: "مشغول",
 		version: "1.6",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
 		description: {
 			vi: "bật chế độ không làm phiền, khi bạn được tag bot sẽ thông báo",
-			en: "turn on do not disturb mode, when you are tagged bot will notify"
+			en: "قم بتشغيل وضع عدم الإزعاج، وسيقوم الروبوت بإعلامك عندما يتم وضع علامة باسمك"
 		},
 		category: "box chat",
 		guide: {
 			vi: "   {pn} [để trống | <lý do>]: bật chế độ không làm phiền"
 				+ "\n   {pn} off: tắt chế độ không làm phiền",
-			en: "   {pn} [empty | <reason>]: turn on do not disturb mode"
-				+ "\n   {pn} off: turn off do not disturb mode"
+			en: "   {pn} [فارغة | <السبب>]: تشغيل وضع عدم الإزعاج"
+				+ "\n   {pn} إيقاف: قم بإيقاف تشغيل وضع عدم الإزعاج"
 		}
 	},
 
@@ -31,19 +31,19 @@ module.exports = {
 			alreadyOnWithReason: "Hiện tại người dùng %1 đang bận với lý do: %2"
 		},
 		en: {
-			turnedOff: "✅ | Do not disturb mode has been turned off",
-			turnedOn: "✅ | Do not disturb mode has been turned on",
-			turnedOnWithReason: "✅ | Do not disturb mode has been turned on with reason: %1",
-			turnedOnWithoutReason: "✅ | Do not disturb mode has been turned on",
-			alreadyOn: "User %1 is currently busy",
-			alreadyOnWithReason: "User %1 is currently busy with reason: %2"
+			turnedOff: "✅ | تم إيقاف وضع عدم الإزعاج",
+			turnedOn: "✅ | تم تشغيل وضع عدم الإزعاج",
+			turnedOnWithReason: "✅ | تم تشغيل وضع عدم الإزعاج لسبب ما: %1",
+			turnedOnWithoutReason: "✅ | تم تشغيل وضع عدم الإزعاج",
+			alreadyOn: "المستخدم %1 مشغول حاليا",
+			alreadyOnWithReason: "المستخدم %1 مشغول حاليا مع السبب: %2"
 		}
 	},
 
 	onStart: async function ({ args, message, event, getLang, usersData }) {
 		const { senderID } = event;
 
-		if (args[0] == "off") {
+		if (args[0] == "ايقاف") {
 			const { data } = await usersData.get(senderID);
 			delete data.busy;
 			await usersData.set(senderID, data, "data");
@@ -76,4 +76,4 @@ module.exports = {
 			}
 		}
 	}
-};
+}; 
