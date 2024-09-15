@@ -4,22 +4,21 @@ const { client } = global;
 
 module.exports = {
 	config: {
-		name: "adminonly",
-		aliases: ["adonly", "onlyad", "onlyadmin"],
+		name: "ايقاف",
+		aliases: ["off"],
 		version: "1.5",
 		author: "NTKhang",
 		countDown: 5,
 		role: 2,
 		description: {
 			vi: "bật/tắt chế độ chỉ admin mới có thể sử dụng bot",
-			en: "turn on/off only admin can use bot"
+			en: "ايقاف و تشغيل البوت"
 		},
 		category: "owner",
 		guide: {
 			vi: "   {pn} [on | off]: bật/tắt chế độ chỉ admin mới có thể sử dụng bot"
 				+ "\n   {pn} noti [on | off]: bật/tắt thông báo khi người dùng không phải là admin sử dụng bot",
-			en: "   {pn} [on | off]: turn on/off the mode only admin can use bot"
-				+ "\n   {pn} noti [on | off]: turn on/off the notification when user is not admin use bot"
+			en: "مادخلك"
 		}
 	},
 
@@ -31,10 +30,10 @@ module.exports = {
 			turnedOffNoti: "Đã tắt thông báo khi người dùng không phải là admin sử dụng bot"
 		},
 		en: {
-			turnedOn: "Turned on the mode only admin can use bot",
-			turnedOff: "Turned off the mode only admin can use bot",
-			turnedOnNoti: "Turned on the notification when user is not admin use bot",
-			turnedOffNoti: "Turned off the notification when user is not admin use bot"
+			turnedOn: "تم ايقاف تشغيل البوت ⁦(⁠o⁠´⁠･⁠_⁠･⁠)⁠っ⁩",
+			turnedOn: "تم تشغيل البوت ⁦⊂⁠(⁠´⁠･⁠◡⁠･⁠⊂⁠ ⁠)⁠∘⁠˚⁠˳⁠°⁩",
+			turnedOnNoti: "تم تشغيل الإشعار عندما لا يكون المستخدم مسؤولاً عن استخدام الروبوت",
+			turnedOffNoti: "تم إيقاف تشغيل الإشعارات عندما لا يكون المستخدم مسؤولاً عن استخدام الروبوت"
 		}
 	},
 
@@ -43,14 +42,14 @@ module.exports = {
 		let value;
 		let indexGetVal = 0;
 
-		if (args[0] == "noti") {
+		if (args[0] == "اشعارات") {
 			isSetNoti = true;
 			indexGetVal = 1;
 		}
 
-		if (args[indexGetVal] == "on")
+		if (args[indexGetVal] == "تشغيل")
 			value = true;
-		else if (args[indexGetVal] == "off")
+		else if (args[indexGetVal] == "ايقاف")
 			value = false;
 		else
 			return message.SyntaxError();
