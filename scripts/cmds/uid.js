@@ -3,25 +3,25 @@ const regExCheckURL = /^(http|https):\/\/[^ "]+$/;
 
 module.exports = {
 	config: {
-		name: "uid",
+		name: "ادي",
 		version: "1.3",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
 		description: {
 			vi: "Xem user id facebook của người dùng",
-			en: "View facebook user id of user"
+			en: "عرض ايدي"
 		},
-		category: "info",
+		category: "خدمات",
 		guide: {
 			vi: "   {pn}: dùng để xem id facebook của bạn"
 				+ "\n   {pn} @tag: xem id facebook của những người được tag"
 				+ "\n   {pn} <link profile>: xem id facebook của link profile"
 				+ "\n   Phản hồi tin nhắn của người khác kèm lệnh để xem id facebook của họ",
-			en: "   {pn}: use to view your facebook user id"
-				+ "\n   {pn} @tag: view facebook user id of tagged people"
-				+ "\n   {pn} <profile link>: view facebook user id of profile link"
-				+ "\n   Reply to someone's message with the command to view their facebook user id"
+			en: "   {pn}: لعرض ايديك"
+				+ "\n   {pn} @تاغ: "
+				+ "\n   {pn} <رابط الشخص>: عرض ايدي المستخدم "
+				+ "\n   رد على على رسالةةالذي تريد عرض أيديه "
 		}
 	},
 
@@ -30,7 +30,7 @@ module.exports = {
 			syntaxError: "Vui lòng tag người muốn xem uid hoặc để trống để xem uid của bản thân"
 		},
 		en: {
-			syntaxError: "Please tag the person you want to view uid or leave it blank to view your own uid"
+			syntaxError: "ادخل ربط الشخص الذي تريد عرض أيديه (uid)"
 		}
 	},
 
