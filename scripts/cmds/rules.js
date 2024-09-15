@@ -2,16 +2,17 @@ const { getPrefix } = global.utils;
 
 module.exports = {
 	config: {
-		name: "rules",
+		name: "القواعد",
+		aliases: ["قواعد"],
 		version: "1.6",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
 		description: {
 			vi: "Tạo/xem/thêm/sửa/đổi vị trí/xóa nội quy nhóm của bạn",
-			en: "Create/view/add/edit/change position/delete group rules of you"
+			en: "اضافة قواعد لمجموعتك"
 		},
-		category: "box chat",
+		category: "المجموعات",
 		guide: {
 			vi: "   {pn} [add | -a] <nội quy muốn thêm>: thêm nội quy cho nhóm."
 				+ "\n   {pn}: xem nội quy của nhóm."
@@ -25,18 +26,18 @@ module.exports = {
 				+ "\n    {pn} move 1 3"
 				+ "\n    {pn} -e 1 không spam tin nhắn trong nhóm"
 				+ "\n    {pn} -r",
-			en: "   {pn} [add | -a] <rule to add>: add rule for group."
-				+ "\n   {pn}: view group rules."
-				+ "\n   {pn} [edit | -e] <n> <content after edit>: edit rule number n."
-				+ "\n   {pn} [move | -m] <stt1> <stt2> swap position of rule number <stt1> and <stt2>."
-				+ "\n   {pn} [delete | -d] <n>: delete rule number n."
-				+ "\n   {pn} [remove | -r]: delete all rules of group."
+			en: "   {pn} [اضف | -ا] <قاعدة>: اضافة قاعدة جديدة."
+				+ "\n   {pn}: عرض قواعد المجموعة."
+				+ "\n   {pn} [تعديل | -ت] <الرقم> <القاعدة الجديدة >: لتعديل قواعد المجموعة."
+				+ "\n   {pn} [تحويل | -ح] <قاعدة1،> <قاعدة2> تغير مكان القاعدة ."
+				+ "\n   {pn} [حذف] <الرقم>: حذف قاعدة من الرقم."
+				+ "\n   {pn} [حذف&الكل ]: حذف جميع القواعد."
 				+ "\n"
-				+ "\n   Example:"
-				+ "\n    {pn} add don't spam"
-				+ "\n    {pn} move 1 3"
-				+ "\n    {pn} -e 1 don't spam message in group"
-				+ "\n    {pn} -r"
+				+ "\n   أمثلة:"
+				+ "\n    {pn} اصف ممنوع الروابط"
+				+ "\n    {pn} تحويل 1 3"
+				+ "\n    {pn} -ت 1 ممنوع +١٨"
+				+ "\n    {pn} حذف&الكل"
 		}
 	},
 
@@ -63,35 +64,35 @@ module.exports = {
 			rulesNotExistDelete: "Không tồn tại nội quy thứ %1",
 			successDelete: "Đã xóa nội quy thứ %1 của nhóm, nội dung: %2",
 			noPermissionRemove: "Chỉ có quản trị viên nhóm mới có thể xoá bỏ tất cả nội quy của nhóm",
-			confirmRemove: "⚠️ Thả cảm xúc bất kỳ vào tin nhắn này để xác nhận xóa toàn bộ nội quy của nhóm",
+			confirmRemove: "⚠ Thả cảm xúc bất kỳ vào tin nhắn này để xác nhận xóa toàn bộ nội quy của nhóm",
 			successRemove: "Đã xóa toàn bộ nội quy của nhóm thành công",
 			invalidNumberView: "Vui lòng nhập số thứ tự của nội quy bạn muốn xem"
 		},
 		en: {
-			yourRules: "Your group rules\n%1",
-			noRules: "Your group has no rules, to add rules for group use `%1rules add`",
-			noPermissionAdd: "Only admins can add rules for group",
-			noContent: "Please enter the content for the rule you want to add",
-			success: "Added new rule for group successfully",
-			noPermissionEdit: "Only admins can edit group rules",
-			invalidNumber: "Please enter the number of the rule you want to edit",
-			rulesNotExist: "Rule number %1 does not exist",
-			numberRules: "Your group only has %1 rules",
-			noContentEdit: "Please enter the content you want to change for rule number %1",
-			successEdit: "Edited rule number %1 to: %2",
-			noPermissionMove: "Only admins can move group rules",
-			invalidNumberMove: "Please enter the number of 2 group rules you want to swap",
-			sameNumberMove: "Cannot swap position of 2 same rules",
-			rulesNotExistMove2: "Rule number %1 and %2 does not exist",
-			successMove: "Swapped position of rule number %1 and %2 successfully",
-			noPermissionDelete: "Only admins can delete group rules",
-			invalidNumberDelete: "Please enter the number of the rule you want to delete",
-			rulesNotExistDelete: "Rule number %1 does not exist",
-			successDelete: "Deleted rule number %1 of group, content: %2",
-			noPermissionRemove: "Only group admins can remove all group rules",
-			confirmRemove: "⚠️ React to this message with any emoji to confirm remove all group rules",
-			successRemove: "Removed all group rules successfully",
-			invalidNumberView: "Please enter the number of the rule you want to view"
+			yourRules: "قواعد المجموعة هي :\n%1",
+			noRules: "لا تحتوي مجموعتك على قواعد حالياً يمكنك اضافة قواعد جديدة`%1قواعد اضف ممنوع الروابط`",
+			noPermissionAdd: "وحدهم ادمن المجموعة يستطيعون استعمال الامر.",
+			noContent: "الرجاء ادخال محتوى القاعدة ",
+			success: "أُضفة قاعدة جديدة بنجاح!.",
+			noPermissionEdit: "وحدهم مسؤولون المجموعة يمكنهم تعديل القواعد.",
+			invalidNumber: "ادخل رقم الرسالة التي تريد تعديلها",
+			rulesNotExistRule: "الرقم %1 غير موجود",
+			numberRules: "تحتوي مجموعتك%1 قاعدة",
+			noContentEdit: "ادخل المحتوى الذي تريد تغييره للقاعدة %1",
+			successEdit: "تم تغرير القاعدة %1 الى: %2",
+			noPermissionMove: "وحدهم مسؤولون المجموعة يمكنهم حذف القواعد",
+			invalidNumberMove: "الرجاء إدخال عدد قاعدتي المجموعة اللتين تريد تبديلهما",
+			sameNumberMove: "تم.",
+			rulesNotExistMove2: "القاعدة رقم%1 و %2 لا يوجدن",
+			successMove: "تم تغيير موضوع القاعدة رقم %1 و %2 بنج٦",
+			noPermissionDelete: "وحدهم ادمن المجموعة يستطيعون حذف قاعده ",
+			invalidNumberDelete: "ادخل رقم القاعدة التي تريد حذفها",
+			rulesNotExistDelete: "القاعدة رقم %1 ليست موجودة ",
+			successDelete: "تم حذف القاعدة رقم%1 ،: %2",
+			noPermissionRemove: "وحدهم مسؤولون المجموعة يمكنهم استخدام الميزة ",
+			confirmRemove: "⚠ هل انت موافق على حذق كل قواعد المجموعة ، يرجى إسقاط اي شيء اذا كنت تريد المتابعة",
+			successRemove: "تم حذف جميع قواعد المجموعة ",
+			invalidNumberView: "ادخل رقم القاعدة لعرضها"
 		}
 	},
 
@@ -114,7 +115,7 @@ module.exports = {
 				});
 			});
 		}
-		else if (["add", "-a"].includes(type)) {
+		else if (["اضف", "-ا"].includes(type)) {
 			if (role < 1)
 				return message.reply(getLang("noPermissionAdd"));
 			if (!args[1])
@@ -128,7 +129,7 @@ module.exports = {
 				message.err(err);
 			}
 		}
-		else if (["edit", "-e"].includes(type)) {
+		else if (["تعديل", "-ت"].includes(type)) {
 			if (role < 1)
 				return message.reply(getLang("noPermissionEdit"));
 			const stt = parseInt(args[1]);
@@ -148,7 +149,7 @@ module.exports = {
 				message.err(err);
 			}
 		}
-		else if (["move", "-m"].includes(type)) {
+		else if (["تحويل", "-ح"].includes(type)) {
 			if (role < 1)
 				return message.reply(getLang("noPermissionMove"));
 			const num1 = parseInt(args[1]);
@@ -177,7 +178,7 @@ module.exports = {
 				message.err(err);
 			}
 		}
-		else if (["delete", "del", "-d"].includes(type)) {
+		else if (["حذف", "del", "-ح"].includes(type)) {
 			if (role < 1)
 				return message.reply(getLang("noPermissionDelete"));
 			if (!args[1] || isNaN(args[1]))
@@ -189,7 +190,7 @@ module.exports = {
 			await threadsData.set(threadID, rulesOfThread, "data.rules");
 			message.reply(getLang("successDelete", args[1], rulesDel));
 		}
-		else if (["remove", "reset", "-r", "-rm"].includes(type)) {
+		else if (["حذف&الكل", "reset", "-r", "-rm"].includes(type)) {
 			if (role < 1)
 				return message.reply(getLang("noPermissionRemove"));
 			message.reply(getLang("confirmRemove"), (err, info) => {
