@@ -2,16 +2,16 @@ const fs = require("fs-extra");
 
 module.exports = {
 	config: {
-		name: "backupdata",
+		name: "بينات",
 		version: "1.3",
 		author: "NTKhang",
 		countDown: 5,
 		role: 2,
 		description: {
 			vi: "Sao lưu dữ liệu của bot (threads, users, dashboard, globalData)",
-			en: "Backup data of bot (threads, users, dashboard, globalData)"
+			en: "النسخ الاحتياطي لبيانات الروبوت (المواضيع والمستخدمين ولوحة القيادة والبيانات العالمية)"
 		},
-		category: "owner",
+		category: "ادمن",
 		guide: {
 			en: "   {pn}"
 		}
@@ -22,7 +22,7 @@ module.exports = {
 			backedUp: "Đã sao lưu dữ liệu của bot vào thư mục scripts/cmds/tmp"
 		},
 		en: {
-			backedUp: "Bot data has been backed up to the scripts/cmds/tmp folder"
+			backedUp: "تم عمل نسخة احتياطية من بيانات الروبوت في المجلد scripts/cmds/tmp"
 		}
 	},
 
