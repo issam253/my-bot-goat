@@ -26,7 +26,8 @@ function isURL(str) {
 
 module.exports = {
 	config: {
-		name: "cmd",
+		name: "كومند",
+   aliases: ["cmd"],
 		version: "1.17",
 		author: "NTKhang",
 		countDown: 5,
@@ -41,10 +42,7 @@ module.exports = {
 				+ "\n   {pn} loadAll"
 				+ "\n   {pn} install <url> <tên file lệnh>: Tải xuống và cài đặt một tệp lệnh từ một url, url là đường dẫn đến tệp lệnh (raw)"
 				+ "\n   {pn} install <tên file lệnh> <code>: Tải xuống và cài đặt một tệp lệnh từ một code, code là mã của lệnh",
-			en: "   {pn} load <command file name>"
-				+ "\n   {pn} loadAll"
-				+ "\n   {pn} install <url> <command file name>: Download and install a command file from a url, url is the path to the file (raw)"
-				+ "\n   {pn} install <command file name> <code>: Download and install a command file from a code, code is the code of the command"
+			en: "   مادخلك"
 		}
 	},
 
