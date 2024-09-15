@@ -5,7 +5,7 @@ module.exports = {
     name: "رصيدي",
     aliases: ["رصيد"],
     version: "1.0",
-    author: "issam",
+    author: "",
     description: {
       vi: "Thêm, xóa, sửa quyền admin",
       en: "عرض رصيدك في حساب البوت"
