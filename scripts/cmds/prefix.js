@@ -3,28 +3,29 @@ const { utils } = global;
 
 module.exports = {
 	config: {
-		name: "prefix",
+		name: "بادئة",
+     aliases: ['prefix'],
 		version: "1.4",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
-		description: "Thay đổi dấu lệnh của bot trong box chat của bạn hoặc cả hệ thống bot (chỉ admin bot)",
-		category: "config",
+		description: "تعديل بادئة البوت ",
+		category: "ادمن",
 		guide: {
-			vi: "   {pn} <new prefix>: thay đổi prefix mới trong box chat của bạn"
+			vi: "   {pn} <بادئة جديدة>: thay đổi prefix mới trong box chat của bạn"
 				+ "\n   Ví dụ:"
 				+ "\n    {pn} #"
 				+ "\n\n   {pn} <new prefix> -g: thay đổi prefix mới trong hệ thống bot (chỉ admin bot)"
 				+ "\n   Ví dụ:"
 				+ "\n    {pn} # -g"
 				+ "\n\n   {pn} reset: thay đổi prefix trong box chat của bạn về mặc định",
-			en: "   {pn} <new prefix>: change new prefix in your box chat"
-				+ "\n   Example:"
+			en: "   {pn} <بادئة جديدة >: اضافة بادئة جديدة "
+				+ "\n   أمثلة :"
 				+ "\n    {pn} #"
-				+ "\n\n   {pn} <new prefix> -g: change new prefix in system bot (only admin bot)"
-				+ "\n   Example:"
-				+ "\n    {pn} # -g"
-				+ "\n\n   {pn} reset: change prefix in your box chat to default"
+				+ "\n\n   {pn} <بادئة جديدة> -ب: لتغير بادئة البوت"
+				+ "\n   الأمثلة:"
+				+ "\n    {pn} # -ب"
+				+ "\n\n   {pn} رست: إعادة بادئة البوت"
 		}
 	},
 
@@ -39,13 +40,13 @@ module.exports = {
 			myPrefix: "🌐 Prefix của hệ thống: %1\n🛸 Prefix của nhóm bạn: %2"
 		},
 		en: {
-			reset: "Your prefix has been reset to default: %1",
-			onlyAdmin: "Only admin can change prefix of system bot",
-			confirmGlobal: "Please react to this message to confirm change prefix of system bot",
-			confirmThisThread: "Please react to this message to confirm change prefix in your box chat",
-			successGlobal: "Changed prefix of system bot to: %1",
-			successThisThread: "Changed prefix in your box chat to: %1",
-			myPrefix: "🌐 System prefix: %1\n🛸 Your box chat prefix: %2"
+			reset: "تمت إعادة البادئة الى: %1",
+			onlyAdmin: "وحدهم المسؤولين يمكنهم تعديل البادئة",
+			confirmGlobal: "يرجى إسقاط اي رد على الرسالة ",
+			confirmThisThread: "يرجى إسقاط اي شيء رد على الرسالة ",
+			successGlobal: "تم تغير بادئة البوت إلى : %1",
+			successThisThread: "تم تغير بادئة المجموعة إلى : %1",
+			myPrefix: "🌐 بادئة البوت: %1\n🛸 بادئة المجموعة : %2"
 		}
 	},
 
@@ -53,7 +54,7 @@ module.exports = {
 		if (!args[0])
 			return message.SyntaxError();
 
-		if (args[0] == 'reset') {
+		if (args[0] == 'رست') {
 			await threadsData.set(event.threadID, null, "data.prefix");
 			return message.reply(getLang("reset", global.GoatBot.config.prefix));
 		}
@@ -65,7 +66,7 @@ module.exports = {
 			newPrefix
 		};
 
-		if (args[1] === "-g")
+		if (args[1] === "-ب")
 			if (role < 2)
 				return message.reply(getLang("onlyAdmin"));
 			else
@@ -95,9 +96,9 @@ module.exports = {
 	},
 
 	onChat: async function ({ event, message, getLang }) {
-		if (event.body && event.body.toLowerCase() === "prefix")
+		if (event.body && event.body.toLowerCase() === "البادئة")
 			return () => {
-				return message.reply(getLang("myPrefix", global.GoatBot.config.prefix, utils.getPrefix(event.threadID)));
+				return message.reply(getLang("myPrefix", global.GoatBot.config.prefix ? global.GoatBot.config.prefix: "بدون بادئة", utils.getPrefix(event.threadID)));
 			};
 	}
 };
