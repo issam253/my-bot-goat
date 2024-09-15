@@ -3,7 +3,7 @@ const defaultEmojiTranslate = "🌐";
 
 module.exports = {
 	config: {
-		name: "translate",
+		name: "ترجمة",
 		aliases: ["trans"],
 		version: "1.5",
 		author: "NTKhang",
@@ -22,13 +22,13 @@ module.exports = {
 				+ "\n    {pn} hello -> vi"
 				+ "\n   {pn} -r [on | off]: Bật hoặc tắt chế độ tự động dịch tin nhắn khi có người thả cảm xúc vào tin nhắn"
 				+ "\n   {pn} -r set <emoji>: Đặt emoji để dịch tin nhắn trong nhóm chat của bạn",
-			en: "   {pn} <text>: Translate text to the language of your chat box or the default language of the bot"
-				+ "\n   {pn} <text> -> <ISO 639-1>: Translate text to the desired language"
-				+ "\n   or you can reply a message to translate the content of that message"
-				+ "\n   Example:"
-				+ "\n    {pn} hello -> vi"
-				+ "\n   {pn} -r [on | off]: Turn on or off the automatic translation mode when someone reacts to the message"
-				+ "\n   {pn} -r set <emoji>: Set the emoji to translate the message in your chat group"
+			en: "   {pn} <نص>: ترجمة النص إلى لغة صندوق الدردشة الخاص بك أو اللغة الافتراضية للروبوت"
+				+ "\n   {pn} <النص> -> <>: ترجمة النص إلى اللغة المطلوبة"
+				+ "\n   أو يمكنك الرد على رسالة لترجمة محتوى تلك الرسالة"
+				+ "\n   مثال:"
+				+ "\n    {pn} مرحبا -> en"
+				+ "\n   {pn} -ت [تشغيل | إيقاف]: قم بتشغيل أو إيقاف تشغيل وضع الترجمة التلقائية عندما يتفاعل شخص ما مع الرسالة"
+				+ "\n   {pn} -ت ضبط <ايموجي>: اضبط الرمز التعبيري لترجمة الرسالة في مجموعة الدردشة الخاصة بك"
 		}
 	},
 
@@ -43,17 +43,17 @@ module.exports = {
 
 		},
 		en: {
-			translateTo: "🌐 Translate from %1 to %2",
-			invalidArgument: "❌ Invalid argument, please choose on or off",
-			turnOnTransWhenReaction: `✅ Turn on translate message when reaction, try to react \"${defaultEmojiTranslate}\" to any message to translate it (not support bot message)\n Only translate message after turn on this feature`,
-			turnOffTransWhenReaction: "✅ Turn off translate message when reaction",
-			inputEmoji: "🌀 Please react to this message to set that emoji as emoji to translate message",
-			emojiSet: "✅ Emoji to translate message is set to %1"
+			translateTo: "🌐 تمت الترجمة من %1 الى %2",
+			invalidArgument: "❌ وسيطة غير صالحة، يرجى اختيار التشغيل أو الإيقاف",
+			turnOnTransWhenReaction: `✅ قمت بتشغيل ترجمة الرسالة عند الرد، حاول الرد \"${defaultEmojiTranslate}\" إلى أي رسالة لترجمتها (لا تدعم رسالة الروبوت)\n لا تترجم الرسالة إلا بعد تشغيل هذه الميزة`,
+			turnOffTransWhenReaction: "✅ قمت بإيقاف تشغيل ترجمة الرسالة عند التفاعل",
+			inputEmoji: "🌀 يرجى الرد على هذه الرسالة لتعيين هذا الرمز التعبيري كرمز تعبيري لترجمة الرسالة",
+			emojiSet: "✅  تم تعيين الرموز التعبيرية لترجمة الرسالة على %1"
 		}
 	},
 
 	onStart: async function ({ message, event, args, threadsData, getLang, commandName }) {
-		if (["-r", "-react", "-reaction"].includes(args[0])) {
+		if (["-ت", "-react", "-reaction"].includes(args[0])) {
 			if (args[1] == "set") {
 				return message.reply(getLang("inputEmoji"), (err, info) =>
 					global.GoatBot.onReaction.set(info.messageID, {
@@ -64,7 +64,7 @@ module.exports = {
 					})
 				);
 			}
-			const isEnable = args[1] == "on" ? true : args[1] == "off" ? false : null;
+			const isEnable = args[1] == "تشغيل" ? true : args[1] == "ايقاف" ? false : null;
 			if (isEnable == null)
 				return message.reply(getLang("invalidArgument"));
 			await threadsData.set(event.threadID, isEnable, "data.translate.autoTranslateWhenReaction");
@@ -132,7 +132,7 @@ module.exports = {
 			case "translate": {
 				const emojiTrans = await threadsData.get(event.threadID, "data.translate.emojiTranslate") || "🌐";
 				if (event.reaction == emojiTrans) {
-					const langCodeTrans = await threadsData.get(event.threadID, "data.lang") || global.GoatBot.config.language;
+					const langCodeTrans = await threadsData.get(event.threadID, "data.lang") || ar;
 					const content = Reaction.body;
 					Reaction.delete();
 					translateAndSendMessage(content, langCodeTrans, message, getLang);
