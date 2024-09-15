@@ -3,21 +3,21 @@ const { getStreamFromURL } = global.utils;
 
 module.exports = {
 	config: {
-		name: "avatar",
+		name: "افتار",
 		author: "NTKhang",
 		version: "1.6",
 		cooldowns: 5,
 		role: 0,
 		description: {
 			vi: "tạo avatar anime với chữ ký",
-			en: "create anime avatar with signature"
+			en: "إنشاء الصورة الرمزية أنيمي مع التوقيع"
 		},
-		category: "image",
+		category: "الصور",
 		guide: {
 			vi: "   {p}{n} <mã số nhân vật hoặc tên nhân vật> | <chữ nền> | <chữ ký> | <tên màu tiếng anh hoặc mã màu nền (hex color)>"
 				+ "\n   {p}{n} help: xem cách dùng lệnh",
-			en: "   {p}{n} <character id or character name> | <background text> | <signature> | <background color name or hex color>"
-				+ "\n   {p}{n} help: view how to use this command"
+			en: "   {p}{n} <معرف الحرف أو اسم الحرف> | <نص الخلفية> | <التوقيع> | <اسم لون الخلفية أو اللون السداسي>"
+				+ "\n   {p}{n} مساعدة: عرض كيفية استخدام هذا الأمر"
 		}
 	},
 
@@ -32,13 +32,13 @@ module.exports = {
 			error: "Đã xảy ra lỗi\n%1: %2"
 		},
 		en: {
-			initImage: "Initializing image, please wait...",
-			invalidCharacter: "Currently there are only %1 characters on the system, please enter a character id less than",
-			notFoundCharacter: "No character named %1 was found in the character list",
-			errorGetCharacter: "An error occurred while getting character data:\n%1: %2",
-			success: "✅ Your avatar\nCharacter: %1\nID: %2\nBackground text: %3\nSignature: %4\nColor: %5",
-			defaultColor: "default",
-			error: "An error occurred\n%1: %2"
+			initImage: "جارٍ تهيئة الصورة، يرجى الانتظار...",
+			invalidCharacter: "يوجد حاليًا %1 حرفًا فقط على النظام، يرجى إدخال معرف حرف أقل من",
+			notFoundCharacter: "لم يتم العثور على أي حرف اسمه %1 في قائمة الأحرف",
+			errorGetCharacter: "حدث خطأ أثناء الحصول على بيانات الأحرف:\n%1: %2",
+			success: "✅ تم بنجاح!\nالشخصية: %1\nايدي: %2\nالنص: %3\nالتوقيع: %4\nاللون: %5",
+			defaultColor: "افتراضي",
+			error: "حدث خطأ\n%1: %2"
 		}
 	},
 
