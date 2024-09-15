@@ -3,19 +3,19 @@ const { getStreamFromURL } = global.utils;
 
 module.exports = {
 	config: {
-		name: "appstore",
+		name: "ابستور",
 		version: "1.2",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
 		description: {
-			vi: "Tìm app trên appstore",
-			en: "Search app on appstore"
+			vi: "Tìm ap",
+			en: "البحث عن تطبيقات "
 		},
 		category: "software",
-		guide: "   {pn}: <keyword>"
-			+ "\n   - Example:"
-			+ "\n   {pn} PUBG",
+		guide: "   {pn}: <تطبيقات>"
+			+ "\n   - مثال:"
+			+ "\n   {pn} بابجي",
 		envConfig: {
 			limitResult: 3
 		}
@@ -27,8 +27,8 @@ module.exports = {
 			noResult: "Không tìm thấy kết quả nào cho từ khóa %1"
 		},
 		en: {
-			missingKeyword: "You haven't entered any keyword",
-			noResult: "No result found for keyword %1"
+			missingKeyword: "لم تقم بإدخال أي كلمة رئيسية",
+			noResult: "لا يوجد  %1"
 		}
 	},
 
@@ -52,7 +52,7 @@ module.exports = {
 			let msg = "";
 			const pedningImages = [];
 			for (const result of results) {
-				msg += `\n\n- ${result.trackCensoredName} by ${result.artistName}, ${result.formattedPrice} and rated ${"🌟".repeat(result.averageUserRating)} (${result.averageUserRating.toFixed(1)}/5)`
+				msg += `\n\n- ${result.trackCensoredName} الشركة ${result.artistName}, ${result.formattedPrice} وتصنيفها ${"🌟".repeat(result.averageUserRating)} (${result.averageUserRating.toFixed(1)}/5)`
 					+ `\n- ${result.trackViewUrl}`;
 				pedningImages.push(await getStreamFromURL(result.artworkUrl512 || result.artworkUrl100 || result.artworkUrl60));
 			}
