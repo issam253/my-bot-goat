@@ -2,21 +2,21 @@ const moment = require("moment-timezone");
 
 module.exports = {
 	config: {
-		name: "daily",
+		name: "هدية",
 		version: "1.2",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
 		description: {
 			vi: "Nhận quà hàng ngày",
-			en: "Receive daily gift"
+			en: "هدية يومية"
 		},
-		category: "game",
+		category: "العاب",
 		guide: {
 			vi: "   {pn}: Nhận quà hàng ngày"
 				+ "\n   {pn} info: Xem thông tin quà hàng ngày",
 			en: "   {pn}"
-				+ "\n   {pn} info: View daily gift information"
+				+ "\n   {pn} معلومات: عرض مكافئة كل يوم"
 		},
 		envConfig: {
 			rewardFirstDay: {
@@ -39,21 +39,21 @@ module.exports = {
 			received: "Bạn đã nhận được %1 coin và %2 exp"
 		},
 		en: {
-			monday: "Monday",
-			tuesday: "Tuesday",
-			wednesday: "Wednesday",
-			thursday: "Thursday",
-			friday: "Friday",
-			saturday: "Saturday",
-			sunday: "Sunday",
-			alreadyReceived: "You have already received the gift",
-			received: "You have received %1 coin and %2 exp"
+			monday: "الاثنين",
+			tuesday: "الثلاثاء",
+			wednesday: "الأربعاء",
+			thursday: "الخم٦",
+			friday: "الجمعة",
+			saturday: "السبت",
+			sunday: "الأحد",
+			alreadyReceived: "سبق و تلقيت الهدية",
+			received: "لقد تلقيت %1 عملة و %2 نقطة"
 		}
 	},
 
 	onStart: async function ({ args, message, event, envCommands, usersData, commandName, getLang }) {
 		const reward = envCommands[commandName].rewardFirstDay;
-		if (args[0] == "info") {
+		if (args[0] == "معلومات") {
 			let msg = "";
 			for (let i = 1; i < 8; i++) {
 				const getCoin = Math.floor(reward.coin * (1 + 20 / 100) ** ((i == 0 ? 7 : i) - 1));
@@ -65,7 +65,7 @@ module.exports = {
 								i == 3 ? getLang("wednesday") :
 									i == 2 ? getLang("tuesday") :
 										getLang("monday");
-				msg += `${day}: ${getCoin} coin, ${getExp} exp\n`;
+				msg += `${day}: ${getCoin} عملة, ${getExp} خبرة\n`;
 			}
 			return message.reply(msg);
 		}
