@@ -1,22 +1,22 @@
 module.exports = {
 	config: {
-		name: "count",
+		name: "العدد",
 		version: "1.3",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
 		description: {
 			vi: "Xem số lượng tin nhắn của tất cả thành viên hoặc bản thân (tính từ lúc bot vào nhóm)",
-			en: "View the number of messages of all members or yourself (since the bot joined the group)"
+			en: "عرض عدد الرسائل لجميع الأعضاء أو لنفسك (منذ انضمام الروبوت إلى المجموعة)"
 		},
-		category: "box chat",
+		category: "المجموعات",
 		guide: {
 			vi: "   {pn}: dùng để xem số lượng tin nhắn của bạn"
 				+ "\n   {pn} @tag: dùng để xem số lượng tin nhắn của những người được tag"
 				+ "\n   {pn} all: dùng để xem số lượng tin nhắn của tất cả thành viên",
 			en: "   {pn}: used to view the number of messages of you"
-				+ "\n   {pn} @tag: used to view the number of messages of those tagged"
-				+ "\n   {pn} all: used to view the number of messages of all members"
+				+ "\n   {pn} @تاغ: يستخدم لعرض عدد الرسائل الخاصة بتلك التي تم وضع علامة عليها"
+				+ "\n   {pn} الكل: يستخدم لعرض عدد الرسائل لجميع الأعضاء"
 		}
 	},
 
@@ -31,13 +31,13 @@ module.exports = {
 			invalidPage: "Số trang không hợp lệ"
 		},
 		en: {
-			count: "Number of messages of members:",
-			endMessage: "Those who do not have a name in the list have not sent any messages.",
-			page: "Page [%1/%2]",
-			reply: "Reply to this message with the page number to view more",
-			result: "%1 rank %2 with %3 messages",
-			yourResult: "You are ranked %1 and have sent %2 messages in this group",
-			invalidPage: "Invalid page number"
+			count: "عدد رسائل الأعضاء:",
+			endMessage: "أولئك الذين ليس لديهم اسم في القائمة لم يرسلوا أي رسائل.",
+			page: "الصفحة [%1/%2]",
+			reply: "قم بالرد على هذه الرسالة برقم الصفحة لمشاهدة المزيد",
+			result: "%1 رتبة %2 مع %3 رسائل",
+			yourResult: "لقد تم تصنيفك %1 وأرسلت %2 الرسائل في هذه المجموعة",
+			invalidPage: "رقم الصفحة غير صالح"
 		}
 	},
 
@@ -62,7 +62,7 @@ module.exports = {
 		arraySort.map(item => item.stt = stt++);
 
 		if (args[0]) {
-			if (args[0].toLowerCase() == "all") {
+			if (args[0].toLowerCase() == "الكل") {
 				let msg = getLang("count");
 				const endMessage = getLang("endMessage");
 				for (const item of arraySort) {
