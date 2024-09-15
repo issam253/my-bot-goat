@@ -1,18 +1,18 @@
 module.exports = {
 	config: {
-		name: "unsend",
+		name: "حذف",
 		version: "1.2",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
 		description: {
 			vi: "Gỡ tin nhắn của bot",
-			en: "Unsend bot's message"
+			en: "حذف رسالة من البوت"
 		},
-		category: "box chat",
+		category: "المجموعة",
 		guide: {
 			vi: "reply tin nhắn muốn gỡ của bot và gọi lệnh {pn}",
-			en: "reply the message you want to unsend and call the command {pn}"
+			en: "رد على رسالة البوت بـ {pn}"
 		}
 	},
 
@@ -21,7 +21,7 @@ module.exports = {
 			syntaxError: "Vui lòng reply tin nhắn muốn gỡ của bot"
 		},
 		en: {
-			syntaxError: "Please reply the message you want to unsend"
+			syntaxError: "رد على رسالة للبوت لحذفها"
 		}
 	},
 
