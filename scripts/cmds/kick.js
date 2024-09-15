@@ -7,7 +7,7 @@ module.exports = {
 		role: 1,
 		description: {
 			vi: "Kick thành viên khỏi box chat",
-			en: "Kick member out of chat box"
+			en: "طرد العضو من صندوق الدردشة"
 		},
 		category: "box chat",
 		guide: {
