@@ -1,13 +1,13 @@
 module.exports = {
 	config: {
-		name: "setrole",
+		name: "دور",
 		version: "1.4",
 		author: "NTKhang",
 		countDown: 5,
 		role: 1,
 		description: {
 			vi: "Chỉnh sửa role của lệnh (những lệnh có role < 2)",
-			en: "Edit role of command (commands with role < 2)"
+			en: "لتغير دور مستخدمي الأمر"
 		},
 		category: "info",
 		guide: {
@@ -24,26 +24,14 @@ module.exports = {
 				+ "\n    {pn} rank default: reset về mặc định"
 				+ "\n—————"
 				+ "\n   {pn} [viewrole|view|show]: xem role của những lệnh đã chỉnh sửa",
-			en: "   {pn} <commandName> <new role>: set new role for command"
-				+ "\n   With:"
-				+ "\n   + <commandName>: command name"
-				+ "\n   + <new role>: new role of command with:"
-				+ "\n   + <new role> = 0: command can be used by all members in group"
-				+ "\n   + <new role> = 1: command can be used by admin only"
-				+ "\n   + <new role> = default: reset role of command to default"
-				+ "\n   Example:"
-				+ "\n    {pn} rank 1: (command rank can be used by admin only)"
-				+ "\n    {pn} rank 0: (command rank can be used by all members in group)"
-				+ "\n    {pn} rank default: reset to default"
-				+ "\n—————"
-				+ "\n   {pn} [viewrole|view|show]: view role of edited commands"
+			en: "   {pn} ادمن 1 "
 		}
 	},
 
 	langs: {
 		vi: {
 			noEditedCommand: "✅ Hiện tại nhóm bạn không có lệnh nào được chỉnh sửa role",
-			editedCommand: "⚠️ Những lệnh trong nhóm bạn đã chỉnh sửa role:\n",
+			editedCommand: "⚠ Những lệnh trong nhóm bạn đã chỉnh sửa role:\n",
 			noPermission: "❗ Chỉ có quản trị viên mới có thể thực hiện lệnh này",
 			commandNotFound: "Không tìm thấy lệnh \"%1\"",
 			noChangeRole: "❗ Không thể thay đổi role của lệnh \"%1\"",
@@ -51,13 +39,13 @@ module.exports = {
 			changedRole: "Đã thay đổi role của lệnh \"%1\" thành %2"
 		},
 		en: {
-			noEditedCommand: "✅ Your group has no edited command",
-			editedCommand: "⚠️ Your group has edited commands:\n",
-			noPermission: "❗ Only admin can use this command",
-			commandNotFound: "Command \"%1\" not found",
-			noChangeRole: "❗ Can't change role of command \"%1\"",
-			resetRole: "Reset role of command \"%1\" to default",
-			changedRole: "Changed role of command \"%1\" to %2"
+			noEditedCommand: "✅ تم",
+			editedCommand: "⚠ لا يمكن:\n",
+			noPermission: "❗ وحدهم المسؤولين يمكنهم استخدام الامر ",
+			commandNotFound: "الامر \"%1\" غير موجود",
+			noChangeRole: "❗ ضع رقم صحيح لتقرير الدور \"%1\"",
+			resetRole: "تم إعادة الدور \"%1\" بنجاح",
+			changedRole: "تم تغيير الدور من  \"%1\" الى %2"
 		}
 	},
 
@@ -65,7 +53,7 @@ module.exports = {
 		const { commands, aliases } = global.GoatBot;
 		const setRole = await threadsData.get(event.threadID, "data.setRole", {});
 
-		if (["view", "viewrole", "show"].includes(args[0])) {
+		if (["عرض", "viewrole", "show"].includes(args[0])) {
 			if (!setRole || Object.keys(setRole).length === 0)
 				return message.reply(getLang("noEditedCommand"));
 			let msg = getLang("editedCommand");
