@@ -6,14 +6,14 @@ function checkShortCut(nickname, uid, userName) {
 
 module.exports = {
 	config: {
-		name: "autosetname",
+		name: "كنية",
 		version: "1.3",
 		author: "NTKhang",
 		cooldowns: 5,
 		role: 1,
 		description: {
 			vi: "Tự đổi biệt danh cho thành viên mới vào nhóm chat",
-			en: "Auto change nickname of new member"
+			en: "تغيير لقب العضو الجديد تلقائيًا"
 		},
 		category: "box chat",
 		guide: {
@@ -24,13 +24,13 @@ module.exports = {
 				+ '\n    {pn} set {userName} 🚀'
 				+ '\n\n   {pn} [on | off]: dùng để bật/tắt tính năng này'
 				+ '\n\n   {pn} [view | info]: hiển thị cấu hình hiện tại',
-			en: '   {pn} set <nickname>: use to set config to auto change nickname, with some shortcuts:'
-				+ '\n   + {userName}: name of new member'
-				+ '\n   + {userID}: member id'
-				+ '\n   Example:'
-				+ '\n    {pn} set {userName} 🚀'
-				+ '\n\n   {pn} [on | off]: use to turn on/off this feature'
-				+ '\n\n   {pn} [view | info]: show current config'
+			en: '   {pn} تعيين <الكنية>: يُستخدم لتعيين التكوين لتغيير اللقب تلقائيًا، مع بعض الاختصارات:'
+				+ '\n   + {userName}: هاذا إسم المستخدم'
+				+ '\n   + {userID}: ادي المستخدم'
+				+ '\n   مثال:'
+				+ '\n    {pn} اضف {userName} 🚀'
+				+ '\n\n   {pn} [ايقاف | تشغيل]: تستخدم لتشغيل و ايقاف الميز'
+				+ '\n\n   {pn} [عرض | معلومات]: لعرض معلومات الكنيات'
 		}
 	},
 
@@ -46,20 +46,20 @@ module.exports = {
 			error: "Đã có lỗi xảy ra khi sử dụng chức năng autoSetName, thử tắt tính năng liên kết mời trong nhóm và thử lại sau"
 		},
 		en: {
-			missingConfig: "Please enter the required configuration",
-			configSuccess: "The configuration has been set successfully",
-			currentConfig: "The current autoSetName configuration in your chat group is:\n%1",
-			notSetConfig: "Your group has not set the autoSetName configuration",
-			syntaxError: "Syntax error, only \"{pn} on\" or \"{pn} off\" can be used",
-			turnOnSuccess: "The autoSetName feature has been turned on",
-			turnOffSuccess: "The autoSetName feature has been turned off",
-			error: "An error occurred while using the autoSetName feature, try turning off the invite link feature in the group and try again later"
+			missingConfig: "ادخل الكنية التلقائية ",
+			configSuccess: "تم ضبط التكوين بنجاح",
+			currentConfig: "تكوين اوتونام الحالي في مجموعة الدردشة الخاصة بك هو:\n%1",
+			notSetConfig: "لم تقم مجموعتك بتعيين تكوين اوتونام",
+			syntaxError: "استخدام خاطء, 🤡 \"{pn} تشغيل\" او \"{pn} ايقاف\" 🌝",
+			turnOnSuccess: "تم تشغيل ميزة تم تشغيل ميزة اوتونام",
+			turnOffSuccess: "تم إيقاف تشغيل ميزة اوتون٦",
+			error: "حدث خطأ أثناء استخدام ميزة اوتونام، حاول إيقاف تشغيل ميزة رابط الدعوة في المجموعة وحاول مرة أخرى لاحقًا"
 		}
 	},
 
 	onStart: async function ({ message, event, args, threadsData, getLang }) {
 		switch (args[0]) {
-			case "set":
+			case "اضف":
 			case "add":
 			case "config": {
 				if (args.length < 2)
@@ -68,17 +68,17 @@ module.exports = {
 				await threadsData.set(event.threadID, configAutoSetName, "data.autoSetName");
 				return message.reply(getLang("configSuccess"));
 			}
-			case "view":
-			case "info": {
+			case "عرض":
+			case "معلومات": {
 				const configAutoSetName = await threadsData.get(event.threadID, "data.autoSetName");
 				return message.reply(configAutoSetName ? getLang("currentConfig", configAutoSetName) : getLang("notSetConfig"));
 			}
 			default: {
 				const enableOrDisable = args[0];
-				if (enableOrDisable !== "on" && enableOrDisable !== "off")
+				if (enableOrDisable !== "تشغيل" && enableOrDisable !== "ايقاف")
 					return message.reply(getLang("syntaxError"));
-				await threadsData.set(event.threadID, enableOrDisable === "on", "settings.enableAutoSetName");
-				return message.reply(enableOrDisable == "on" ? getLang("turnOnSuccess") : getLang("turnOffSuccess"));
+				await threadsData.set(event.threadID, enableOrDisable === "تشغيل", "settings.enableAutoSetName");
+				return message.reply(enableOrDisable == "تشغيل" ? getLang("turnOnSuccess") : getLang("turnOffSuccess"));
 			}
 		}
 	},
