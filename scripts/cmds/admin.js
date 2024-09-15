@@ -3,23 +3,23 @@ const { writeFileSync } = require("fs-extra");
 
 module.exports = {
 	config: {
-		name: "admin",
+		name: "ادمن",
 		version: "1.6",
 		author: "NTKhang",
 		countDown: 5,
 		role: 2,
 		description: {
 			vi: "Thêm, xóa, sửa quyền admin",
-			en: "Add, remove, edit admin role"
+			en: "ضيف, زيل , تعديل دور مسؤولين البوت"
 		},
-		category: "box chat",
+		category: "ادمن",
 		guide: {
 			vi: '   {pn} [add | -a] <uid | @tag>: Thêm quyền admin cho người dùng'
 				+ '\n	  {pn} [remove | -r] <uid | @tag>: Xóa quyền admin của người dùng'
 				+ '\n	  {pn} [list | -l]: Liệt kê danh sách admin',
-			en: '   {pn} [add | -a] <uid | @tag>: Add admin role for user'
-				+ '\n	  {pn} [remove | -r] <uid | @tag>: Remove admin role of user'
-				+ '\n	  {pn} [list | -l]: List all admins'
+			en: '   {pn} [ضيفي | -ا] <ادي | @تاغ>: إضافة مسؤول جديد للبوت'
+				+ '\n	  {pn} [زيلي | -ز] <ادي | @تاغ>: ازالة مسؤول كان في البوت'
+				+ '\n	  {pn} [قائمة | -ق]: عرض قائمة كل مسؤولين البوت'
 		}
 	},
 
@@ -34,20 +34,20 @@ module.exports = {
 			listAdmin: "👑 | Danh sách admin:\n%1"
 		},
 		en: {
-			added: "✅ | Added admin role for %1 users:\n%2",
-			alreadyAdmin: "\n⚠️ | %1 users already have admin role:\n%2",
-			missingIdAdd: "⚠️ | Please enter ID or tag user to add admin role",
-			removed: "✅ | Removed admin role of %1 users:\n%2",
-			notAdmin: "⚠️ | %1 users don't have admin role:\n%2",
-			missingIdRemove: "⚠️ | Please enter ID or tag user to remove admin role",
-			listAdmin: "👑 | List of admins:\n%1"
+			added: "✅ | تمت إضافة دور المسؤول لـ %1 المستخدم:\n%2",
+			alreadyAdmin: "\n⚠️ | %1 لدى المستخدمين بالفعل دور المسؤول:\n%2",
+			missingIdAdd: "⚠️ | الرجاء ادخال رابط صحيح ",
+			removed: "✅ | تمت إزالة دور المسؤول لـ %1 المستخدم:\n%2",
+			notAdmin: "⚠️ | %1 ليس لدى المستخدمين دور المسؤول:\n%2",
+			missingIdRemove: "⚠️ | الرجاء إدخال المعرف أو علامة المستخدم لإزالة دور المسؤول",
+			listAdmin: "👑 | قائمة مسؤوليني:\n%1"
 		}
 	},
 
 	onStart: async function ({ message, args, usersData, event, getLang }) {
 		switch (args[0]) {
-			case "add":
-			case "-a": {
+			case "اضف":
+			case "-ا": {
 				if (args[1]) {
 					let uids = [];
 					if (Object.keys(event.mentions).length > 0)
@@ -76,8 +76,8 @@ module.exports = {
 				else
 					return message.reply(getLang("missingIdAdd"));
 			}
-			case "remove":
-			case "-r": {
+			case "زيل":
+			case "-ز": {
 				if (args[1]) {
 					let uids = [];
 					if (Object.keys(event.mentions).length > 0)
@@ -104,8 +104,8 @@ module.exports = {
 				else
 					return message.reply(getLang("missingIdRemove"));
 			}
-			case "list":
-			case "-l": {
+			case "قائمة":
+			case "-ق": {
 				const getNames = await Promise.all(config.adminBot.map(uid => usersData.getName(uid).then(name => ({ uid, name }))));
 				return message.reply(getLang("listAdmin", getNames.map(({ uid, name }) => `• ${name} (${uid})`).join("\n")));
 			}
